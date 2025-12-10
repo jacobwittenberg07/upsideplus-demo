@@ -1,28 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const FAKE_DATA = {
   pharmacies: [
-    { id: 'p1', name: 'CVS Pharmacy – Windward Pkwy', address: '123 Windward Pkwy', savePct: 8, cashback: 2.4, distance: 0.7 },
-    { id: 'p2', name: 'Walgreens – Old Milton Pkwy', address: '45 Old Milton Pkwy', savePct: 12, cashback: 3.1, distance: 1.2 },
-    { id: 'p3', name: 'Rite Aid – Haynes Bridge', address: '800 Haynes Bridge Rd', savePct: 6, cashback: 1.8, distance: 2.4 }
+    {
+      id: "p1",
+      name: "CVS Pharmacy – Windward Pkwy",
+      address: "123 Windward Pkwy",
+      savePct: 8,
+      cashback: 2.4,
+      distance: 0.7,
+    },
+    {
+      id: "p2",
+      name: "Walgreens – Old Milton Pkwy",
+      address: "45 Old Milton Pkwy",
+      savePct: 12,
+      cashback: 3.1,
+      distance: 1.2,
+    },
+    {
+      id: "p3",
+      name: "Rite Aid – Haynes Bridge",
+      address: "800 Haynes Bridge Rd",
+      savePct: 6,
+      cashback: 1.8,
+      distance: 2.4,
+    },
   ],
   petStores: [
-    { id: 't1', name: 'PetSmart – North Point', address: '400 North Point Pkwy', savePct: 5, cashback: 1.7, distance: 1.9 },
-    { id: 't2', name: 'Hollywood Feed – Avalon', address: '370 Avalon Blvd', savePct: 9, cashback: 2.25, distance: 0.9 }
+    {
+      id: "t1",
+      name: "PetSmart – North Point",
+      address: "400 North Point Pkwy",
+      savePct: 5,
+      cashback: 1.7,
+      distance: 1.9,
+    },
+    {
+      id: "t2",
+      name: "Hollywood Feed – Avalon",
+      address: "370 Avalon Blvd",
+      savePct: 9,
+      cashback: 2.25,
+      distance: 0.9,
+    },
   ],
   specialty: [
-    { id: 's1', name: 'GNC – Mansell Rd', address: '55 Mansell Rd', savePct: 7, cashback: 1.9, distance: 3.2 }
+    {
+      id: "s1",
+      name: "GNC – Mansell Rd",
+      address: "55 Mansell Rd",
+      savePct: 7,
+      cashback: 1.9,
+      distance: 3.2,
+    },
   ],
   transactions: [
-    { id: 'tx1', title: 'CVS – Prescription', amountSaved: 3.2, cashback: 2.4, date: '2025-11-26' },
-    { id: 'tx2', title: 'PetSmart – Dog Food', amountSaved: 1.5, cashback: 1.7, date: '2025-11-20' },
-    { id: 'tx3', title: 'Walgreens – Vitamins', amountSaved: 2.1, cashback: 3.1, date: '2025-10-13' }
+    {
+      id: "tx1",
+      title: "CVS – Prescription",
+      amountSaved: 3.2,
+      cashback: 2.4,
+      date: "2025-11-26",
+    },
+    {
+      id: "tx2",
+      title: "PetSmart – Dog Food",
+      amountSaved: 1.5,
+      cashback: 1.7,
+      date: "2025-11-20",
+    },
+    {
+      id: "tx3",
+      title: "Walgreens – Vitamins",
+      amountSaved: 2.1,
+      cashback: 3.1,
+      date: "2025-10-13",
+    },
   ],
 };
 
 function Chip({ children }) {
   return (
-    <span className="inline-block text-[11px] font-medium px-2 py-1 rounded-full border border-gray-200 bg-white/70">
+    <span
+      style={{
+        display: "inline-block",
+        fontSize: 11,
+        padding: "4px 8px",
+        borderRadius: 999,
+        border: "1px solid #e5e7eb",
+        background: "rgba(255,255,255,0.7)",
+      }}
+    >
       {children}
     </span>
   );
@@ -33,60 +102,121 @@ function LocationRow({ item, onOpen }) {
     <button
       type="button"
       onClick={() => onOpen(item)}
-      className="w-full p-3 flex items-center justify-between border-b border-gray-100 hover:bg-gray-50 text-left"
+      style={{
+        width: "100%",
+        padding: 12,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderBottom: "1px solid #f3f4f6",
+        background: "white",
+        cursor: "pointer",
+        textAlign: "left",
+      }}
     >
       <div>
-        <div className="font-semibold text-sm">{item.name}</div>
-        <div className="text-xs text-gray-500">{item.address}</div>
-        <div className="text-xs text-gray-500">{item.distance} mi away</div>
+        <div style={{ fontWeight: 600, fontSize: 14 }}>{item.name}</div>
+        <div style={{ fontSize: 12, color: "#6b7280" }}>{item.address}</div>
+        <div style={{ fontSize: 12, color: "#6b7280" }}>
+          {item.distance} mi away
+        </div>
       </div>
-      <div className="text-right">
-        <div className="text-sm font-semibold">Save {item.savePct}%</div>
-        <div className="text-xs text-gray-600">Earn ${item.cashback.toFixed(2)}</div>
+      <div style={{ textAlign: "right" }}>
+        <div style={{ fontSize: 14, fontWeight: 600 }}>
+          Save {item.savePct}%
+        </div>
+        <div style={{ fontSize: 12, color: "#4b5563" }}>
+          Earn ${item.cashback.toFixed(2)}
+        </div>
       </div>
     </button>
   );
 }
 
 export default function App() {
-  const [tab, setTab] = useState('pharmacies');
+  const [tab, setTab] = useState("pharmacies");
   const [active, setActive] = useState(null);
-  const [view, setView] = useState('home'); // home | wallet
+  const [view, setView] = useState("home"); // 'home' | 'wallet'
 
   const lists = {
     pharmacies: FAKE_DATA.pharmacies,
-    'pet-stores': FAKE_DATA.petStores,
+    "pet-stores": FAKE_DATA.petStores,
     specialty: FAKE_DATA.specialty,
   };
 
-  const totalCashback = FAKE_DATA.transactions.reduce((s, t) => s + t.cashback, 0);
-  const lifetimeSaved = FAKE_DATA.transactions.reduce((s, t) => s + t.amountSaved, 0);
+  const totalCashback = FAKE_DATA.transactions.reduce(
+    (s, t) => s + t.cashback,
+    0
+  );
+  const lifetimeSaved = FAKE_DATA.transactions.reduce(
+    (s, t) => s + t.amountSaved,
+    0
+  );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-100 flex items-start justify-center py-6">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md overflow-hidden relative">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom, #f9fafb, #e5e7eb)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        padding: 24,
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 420,
+          background: "white",
+          borderRadius: 24,
+          boxShadow: "0 10px 30px rgba(15,23,42,0.12)",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
         {/* Header */}
-        <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+        <div
+          style={{
+            padding: 16,
+            borderBottom: "1px solid #f3f4f6",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <div>
-            <div className="text-lg font-bold">Upside+ Rebate Finder</div>
-            <div className="text-xs text-gray-500">
-              Demo extension for pharmacy, pet, and specialty rebates
+            <div style={{ fontSize: 18, fontWeight: 700 }}>
+              Upside+ Rebate Finder
+            </div>
+            <div style={{ fontSize: 11, color: "#6b7280" }}>
+              Pharmacy, pet, and specialty rebates (demo)
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div style={{ display: "flex", gap: 8, fontSize: 11 }}>
             <button
-              onClick={() => setView('home')}
-              className={`px-3 py-2 rounded-xl border text-xs ${
-                view === 'home' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white'
-              }`}
+              onClick={() => setView("home")}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                border: "1px solid #e5e7eb",
+                background: view === "home" ? "#0f172a" : "white",
+                color: view === "home" ? "white" : "#111827",
+                cursor: "pointer",
+              }}
             >
               Browse
             </button>
             <button
-              onClick={() => setView('wallet')}
-              className={`px-3 py-2 rounded-xl border text-xs ${
-                view === 'wallet' ? 'bg-slate-900 text-white border-slate-900' : 'bg-white'
-              }`}
+              onClick={() => setView("wallet")}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                border: "1px solid #e5e7eb",
+                background: view === "wallet" ? "#0f172a" : "white",
+                color: view === "wallet" ? "white" : "#111827",
+                cursor: "pointer",
+              }}
             >
               Wallet
             </button>
@@ -94,105 +224,206 @@ export default function App() {
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          {view === 'home' && (
+        <div style={{ padding: 16 }}>
+          {view === "home" && (
             <>
               {/* Tabs */}
-              <div className="flex gap-2 mb-3">
-                <button
-                  onClick={() => setTab('pharmacies')}
-                  className={`flex-1 py-2 rounded-lg text-xs border ${
-                    tab === 'pharmacies'
-                      ? 'bg-amber-50 border-amber-300 font-semibold'
-                      : 'bg-white border-gray-200'
-                  }`}
-                >
-                  Pharmacies
-                </button>
-                <button
-                  onClick={() => setTab('pet-stores')}
-                  className={`flex-1 py-2 rounded-lg text-xs border ${
-                    tab === 'pet-stores'
-                      ? 'bg-amber-50 border-amber-300 font-semibold'
-                      : 'bg-white border-gray-200'
-                  }`}
-                >
-                  Pet Stores
-                </button>
-                <button
-                  onClick={() => setTab('specialty')}
-                  className={`flex-1 py-2 rounded-lg text-xs border ${
-                    tab === 'specialty'
-                      ? 'bg-amber-50 border-amber-300 font-semibold'
-                      : 'bg-white border-gray-200'
-                  }`}
-                >
-                  Specialty
-                </button>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  marginBottom: 12,
+                  fontSize: 12,
+                }}
+              >
+                {[
+                  ["pharmacies", "Pharmacies"],
+                  ["pet-stores", "Pet Stores"],
+                  ["specialty", "Specialty"],
+                ].map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setTab(key)}
+                    style={{
+                      flex: 1,
+                      padding: "8px 0",
+                      borderRadius: 12,
+                      border:
+                        tab === key
+                          ? "1px solid #fbbf24"
+                          : "1px solid #e5e7eb",
+                      background:
+                        tab === key ? "#fffbeb" : "rgba(255,255,255,0.8)",
+                      fontWeight: tab === key ? 600 : 400,
+                      cursor: "pointer",
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
 
               {/* Location list */}
-              <div className="rounded-xl border border-gray-100 overflow-hidden bg-white">
+              <div
+                style={{
+                  borderRadius: 16,
+                  border: "1px solid #e5e7eb",
+                  overflow: "hidden",
+                  background: "white",
+                }}
+              >
                 {lists[tab].map((item) => (
-                  <LocationRow key={item.id} item={item} onOpen={setActive} />
+                  <LocationRow
+                    key={item.id}
+                    item={item}
+                    onOpen={setActive}
+                  />
                 ))}
                 {lists[tab].length === 0 && (
-                  <div className="p-4 text-center text-gray-500 text-sm">
+                  <div
+                    style={{
+                      padding: 16,
+                      textAlign: "center",
+                      fontSize: 13,
+                      color: "#6b7280",
+                    }}
+                  >
                     No offers in this category (demo).
                   </div>
                 )}
               </div>
 
-              {/* Quick summary */}
-              <div className="mt-4 bg-slate-50 p-3 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <div className="text-[11px] text-gray-500">Total potential cashback (demo)</div>
-                    <div className="text-lg font-semibold">${totalCashback.toFixed(2)}</div>
+              {/* Summary */}
+              <div
+                style={{
+                  marginTop: 16,
+                  padding: 12,
+                  borderRadius: 12,
+                  background: "#f3f4f6",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <div
+                    style={{ fontSize: 11, color: "#6b7280", marginBottom: 2 }}
+                  >
+                    Total potential cashback (demo)
                   </div>
-                  <Chip>Activate in Upside app</Chip>
+                  <div style={{ fontSize: 18, fontWeight: 600 }}>
+                    ${totalCashback.toFixed(2)}
+                  </div>
                 </div>
+                <Chip>Activate in Upside app</Chip>
               </div>
             </>
           )}
 
-          {view === 'wallet' && (
-            <div>
-              <div className="p-3 bg-gradient-to-r from-amber-50 to-white rounded-xl mb-3 border border-amber-100">
-                <div className="text-xs text-gray-500">Lifetime saved (demo)</div>
-                <div className="text-2xl font-bold">${lifetimeSaved.toFixed(2)}</div>
-                <div className="text-xs text-gray-500 mt-1">Pending: $0.00</div>
+          {view === "wallet" && (
+            <>
+              <div
+                style={{
+                  padding: 12,
+                  borderRadius: 12,
+                  background:
+                    "linear-gradient(to right, #fffbeb, #ffffff)",
+                  border: "1px solid #fbbf24",
+                  marginBottom: 12,
+                }}
+              >
+                <div style={{ fontSize: 11, color: "#6b7280" }}>
+                  Lifetime saved (demo)
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 700 }}>
+                  ${lifetimeSaved.toFixed(2)}
+                </div>
+                <div style={{ fontSize: 11, color: "#6b7280", marginTop: 2 }}>
+                  Pending: $0.00
+                </div>
               </div>
 
-              <div className="text-sm font-semibold mb-2">Recent activity</div>
-              <div className="rounded-lg border border-gray-100 overflow-hidden bg-white">
+              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
+                Recent activity
+              </div>
+              <div
+                style={{
+                  borderRadius: 12,
+                  border: "1px solid #e5e7eb",
+                  overflow: "hidden",
+                  background: "white",
+                }}
+              >
                 {FAKE_DATA.transactions.map((tx) => (
-                  <div key={tx.id} className="p-3 flex justify-between border-b border-gray-100">
+                  <div
+                    key={tx.id}
+                    style={{
+                      padding: 12,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      borderBottom: "1px solid #f3f4f6",
+                    }}
+                  >
                     <div>
-                      <div className="text-sm font-semibold">{tx.title}</div>
-                      <div className="text-xs text-gray-500">{tx.date}</div>
+                      <div style={{ fontSize: 14, fontWeight: 600 }}>
+                        {tx.title}
+                      </div>
+                      <div
+                        style={{ fontSize: 12, color: "#6b7280" }}
+                      >
+                        {tx.date}
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm">Saved ${tx.amountSaved.toFixed(2)}</div>
-                      <div className="text-xs text-gray-600">
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: 14 }}>
+                        Saved ${tx.amountSaved.toFixed(2)}
+                      </div>
+                      <div
+                        style={{ fontSize: 12, color: "#4b5563" }}
+                      >
                         Cashback ${tx.cashback.toFixed(2)}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </>
           )}
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-gray-100 flex items-center justify-between">
-          <div className="text-[11px] text-gray-500">Demo • Fake data only</div>
-          <div className="flex items-center gap-2">
-            <button className="text-xs px-3 py-1.5 rounded-lg border border-gray-200">
+        <div
+          style={{
+            padding: 12,
+            borderTop: "1px solid #f3f4f6",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            fontSize: 11,
+          }}
+        >
+          <div style={{ color: "#6b7280" }}>Demo • Fake data only</div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                border: "1px solid #e5e7eb",
+                background: "white",
+                cursor: "pointer",
+              }}
+            >
               Share
             </button>
-            <button className="text-xs px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200">
+            <button
+              style={{
+                padding: "6px 10px",
+                borderRadius: 999,
+                border: "1px solid #fbbf24",
+                background: "#fffbeb",
+                cursor: "pointer",
+              }}
+            >
               Profile
             </button>
           </div>
@@ -200,43 +431,116 @@ export default function App() {
 
         {/* Detail modal */}
         {active && (
-          <div className="absolute inset-0 bg-black/30 flex items-end justify-center p-4">
-            <div className="w-full max-w-md bg-white rounded-2xl overflow-hidden shadow-2xl">
-              <div className="p-4 border-b">
-                <div className="text-lg font-semibold">{active.name}</div>
-                <div className="text-xs text-gray-500">{active.address}</div>
-              </div>
-              <div className="p-4">
-                <div className="mb-2 text-sm font-semibold">Offer details</div>
-                <div className="text-xl font-bold">
-                  Save {active.savePct}% • Earn ${active.cashback.toFixed(2)}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(0,0,0,0.3)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-end",
+              padding: 16,
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                maxWidth: 420,
+                background: "white",
+                borderRadius: 20,
+                overflow: "hidden",
+                boxShadow: "0 20px 40px rgba(15,23,42,0.3)",
+              }}
+            >
+              <div
+                style={{
+                  padding: 16,
+                  borderBottom: "1px solid #f3f4f6",
+                }}
+              >
+                <div style={{ fontSize: 18, fontWeight: 600 }}>
+                  {active.name}
                 </div>
-                <div className="mt-3 text-sm text-gray-600">
-                  Example: Save up to {active.savePct}% on eligible purchases. Cashback paid within
-                  7–14 days. This is a demo-only flow and does not represent real offers.
+                <div style={{ fontSize: 12, color: "#6b7280" }}>
+                  {active.address}
+                </div>
+              </div>
+              <div style={{ padding: 16 }}>
+                <div
+                  style={{ marginBottom: 4, fontSize: 13, fontWeight: 600 }}
+                >
+                  Offer details
+                </div>
+                <div style={{ fontSize: 20, fontWeight: 700 }}>
+                  Save {active.savePct}% • Earn $
+                  {active.cashback.toFixed(2)}
+                </div>
+                <div
+                  style={{
+                    marginTop: 8,
+                    fontSize: 13,
+                    color: "#4b5563",
+                  }}
+                >
+                  Example: Save up to {active.savePct}% on eligible
+                  purchases. Cashback paid within 7–14 days. This is a
+                  demo-only flow and does not represent real offers.
                 </div>
 
-                <div className="mt-4 flex gap-2">
+                <div
+                  style={{
+                    marginTop: 16,
+                    display: "flex",
+                    gap: 8,
+                  }}
+                >
                   <button
                     type="button"
                     onClick={() =>
-                      alert('Activate (demo): in a real app this would start the Upside offer flow.')
+                      alert(
+                        "Activate (demo): in a real app this would start the Upside offer flow."
+                      )
                     }
-                    className="flex-1 py-2 rounded-lg bg-slate-900 text-white text-sm font-semibold"
+                    style={{
+                      flex: 1,
+                      padding: "10px 0",
+                      borderRadius: 12,
+                      border: "none",
+                      background: "#0f172a",
+                      color: "white",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
                   >
                     Activate Offer
                   </button>
                   <button
                     type="button"
                     onClick={() => setActive(null)}
-                    className="flex-1 py-2 rounded-lg border text-sm"
+                    style={{
+                      flex: 1,
+                      padding: "10px 0",
+                      borderRadius: 12,
+                      border: "1px solid #e5e7eb",
+                      background: "white",
+                      fontSize: 13,
+                      cursor: "pointer",
+                    }}
                   >
                     Close
                   </button>
                 </div>
 
-                <div className="mt-4 text-[11px] text-gray-400">
-                  Demo only • Not affiliated with Upside. All locations & amounts are fake.
+                <div
+                  style={{
+                    marginTop: 10,
+                    fontSize: 11,
+                    color: "#9ca3af",
+                  }}
+                >
+                  Demo only • Not affiliated with Upside. All locations &
+                  amounts are fake.
                 </div>
               </div>
             </div>
